@@ -1,0 +1,20 @@
+# Core ML
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+
+# Reinforcement Learning
+gymnasium[box2d]>=0.29.0
+stable-baselines3>=2.1.0
+
+# Optimization
+cma>=3.3.0
+
+# Visualization & Logging
+matplotlib>=3.7.0
+tensorboard>=2.14.0
+tqdm>=4.65.0
+pillow>=9.5.0
+
+# Utilities
+swig>=4.1.0
