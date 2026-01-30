@@ -20,7 +20,7 @@ A PyTorch implementation of [World Models](https://worldmodels.github.io/) (Ha &
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## Quick Start (Prototype - Day 1)
+## Quick Start
 
 ```bash
 # 1. Setup environment
