@@ -1,0 +1,71 @@
+{
+  "method": "PPO",
+  "use_rnn": false,
+  "episodes": [
+    {
+      "episode": 1,
+      "reward": 144.23278688523925,
+      "frames": 370,
+      "gif": "docs\\gifs\\episode_1_score_144.gif"
+    },
+    {
+      "episode": 2,
+      "reward": 398.31649831648144,
+      "frames": 500,
+      "gif": "docs\\gifs\\episode_2_score_398.gif"
+    },
+    {
+      "episode": 3,
+      "reward": 13.141176470590665,
+      "frames": 262,
+      "gif": "docs\\gifs\\episode_3_score_13.gif"
+    },
+    {
+      "episode": 4,
+      "reward": 283.1241134751728,
+      "frames": 248,
+      "gif": "docs\\gifs\\episode_4_score_283.gif"
+    },
+    {
+      "episode": 5,
+      "reward": 193.96666666666346,
+      "frames": 214,
+      "gif": "docs\\gifs\\episode_5_score_193.gif"
+    },
+    {
+      "episode": 6,
+      "reward": 222.31311475409495,
+      "frames": 225,
+      "gif": "docs\\gifs\\episode_6_score_222.gif"
+    },
+    {
+      "episode": 7,
+      "reward": 184.03333333332887,
+      "frames": 247,
+      "gif": "docs\\gifs\\episode_7_score_184.gif"
+    },
+    {
+      "episode": 8,
+      "reward": 197.8231003039465,
+      "frames": 290,
+      "gif": "docs\\gifs\\episode_8_score_197.gif"
+    },
+    {
+      "episode": 9,
+      "reward": 152.28730158729803,
+      "frames": 247,
+      "gif": "docs\\gifs\\episode_9_score_152.gif"
+    },
+    {
+      "episode": 10,
+      "reward": 287.1445859872525,
+      "frames": 310,
+      "gif": "docs\\gifs\\episode_10_score_287.gif"
+    }
+  ],
+  "mean_reward": 207.63826777800688,
+  "std_reward": 97.1321019967261,
+  "best_episode": 2,
+  "best_reward": 398.31649831648144,
+  "best_gif": "docs\\gifs\\best_episode.gif"
+}

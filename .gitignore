@@ -1,0 +1,18 @@
+# Large training artifacts (regenerate via scripts/) — keep docs/ committed
+data/
+checkpoints/
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

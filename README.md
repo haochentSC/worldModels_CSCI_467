@@ -2,6 +2,10 @@
 
 A PyTorch implementation of [World Models](https://worldmodels.github.io/) (Ha & Schmidhuber, 2018) for the CarRacing-v3 environment.
 
+![Agent gameplay](docs/gifs/best_episode.gif)
+
+> Trained agent driving CarRacing-v3. See the **[results & demo gallery](docs/README.md)** for more GIFs, VAE reconstructions, and training curves.
+
 ## Architecture Overview
 
 ```
@@ -15,7 +19,7 @@ A PyTorch implementation of [World Models](https://worldmodels.github.io/) (Ha &
 │   └────┬────┘      └────┬────┘      └─────┬──────┘             │
 │        │                │                  │                    │
 │   64x64x3 → z(32)   z+a → h(256)      z+h → action            │
-│   4.35M params      422K params        867 params              │
+│   1.78M params      422K params        867 params              │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -26,15 +30,23 @@ A PyTorch implementation of [World Models](https://worldmodels.github.io/) (Ha &
 # 1. Setup environment
 ./scripts/setup.sh
 
-# 2. Collect data (500 episodes, ~20 min)
-python -m scripts.collect_data --episodes 500 --threads 4
+# 2. Collect data (250 episodes x 400 steps, ~4 min on 8 threads)
+python -m scripts.collect_data --episodes 250 --threads 8 --max-steps 400
 
-# 3. Train VAE (~30-45 min)
-python -m scripts.train_vae --epochs 5
+# 3. Train VAE — use a small KL weight to avoid posterior collapse (~10 min)
+python -m scripts.train_vae --epochs 15 --kl-weight 0.0001
 
-# 4. Train Controller with PPO (~4-6 hours)
-python -m scripts.train_controller_ppo --timesteps 500000
+# 4. Train Controller with PPO (~2 hours on an RTX 3080)
+python -m scripts.train_controller_ppo --timesteps 500000 --eval-freq 25000
+
+# 5. Record gameplay GIFs + generate result plots
+python -m scripts.record_demo --ppo-model checkpoints/ppo_controller/best_model.zip --episodes 10 --out-dir docs
+python -m scripts.plot_results
 ```
+
+> **Note:** training the VAE with the default `--kl-weight 1.0` causes *posterior
+> collapse* on CarRacing (the latents are ignored and reconstructions become
+> identical blurry frames). Use `--kl-weight 0.0001` as above.
 
 ## Full Training Pipeline
 
@@ -77,7 +89,10 @@ worldModels_CSCI_467/
 │   ├── train_vae.py    # VAE training
 │   ├── train_mdrnn.py  # MDN-RNN training
 │   ├── train_controller_ppo.py
-│   └── train_controller_cma.py
+│   ├── train_controller_cma.py
+│   ├── record_demo.py   # Record gameplay GIFs
+│   └── plot_results.py  # Generate result plots
+├── docs/                # Results, demo GIFs, plots (portfolio display)
 ├── checkpoints/        # Saved models
 ├── logs/               # Training logs
 ├── requirements.txt
@@ -93,11 +108,13 @@ worldModels_CSCI_467/
 
 ## Results
 
-| Method | Score (avg ± std) | Training Time |
-|--------|-------------------|---------------|
-| Prototype (VAE + random RNN + PPO) | ~700 | 6-8 hours |
-| Full (VAE + MDN-RNN + CMA-ES) | ~850-900 | 3-5 days |
-| Paper reported | 906 ± 21 | - |
+| Method | Score (avg ± std) | Best | Training Time |
+|--------|-------------------|------|---------------|
+| **This prototype** (VAE + PPO, 500k steps) | **285 ± 195** | **600** | ~2 hours (RTX 3080 Laptop) |
+| Full (VAE + MDN-RNN + CMA-ES) | ~850-900 | - | 3-5 days |
+| Paper reported | 906 ± 21 | - | - |
+
+Full results, plots, and gameplay recordings: **[docs/README.md](docs/README.md)**.
 
 ## References
 

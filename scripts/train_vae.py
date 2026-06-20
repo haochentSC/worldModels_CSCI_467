@@ -175,8 +175,8 @@ def main():
     train_dataset = TensorDataset(torch.tensor(train_data, dtype=torch.float32))
     val_dataset = TensorDataset(torch.tensor(val_data, dtype=torch.float32))
     
-    train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=4, pin_memory=True)
-    val_loader = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=4, pin_memory=True)
+    train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=0, pin_memory=True)
+    val_loader = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=0, pin_memory=True)
     
     # Create model
     model = VAE(latent_dim=args.latent_dim).to(device)
